@@ -5,13 +5,15 @@ if [ -z "$DOCKER_HOST" -a "$DOCKER_PORT_2375_TCP" ]; then
 	export DOCKER_HOST='tcp://docker:2375'
 fi
 
-cp config.env.json.tpl config.env.json
+cp /root/config.env.json.tpl "${HOME_DIR}/config.env.json"
 
-sed -i -e "s/APP_COMMENT/${APP_COMMENT}/g" config.env.json
-sed -i -e "s/APP_SCHEDULE/${APP_SCHEDULE}/g" config.env.json
-sed -i -e "s/APP_COMMAND/${APP_COMMAND}/g" config.env.json
-sed -i -e "s/APP_PROJECT/${APP_PROJECT}/g" config.env.json
-sed -i -e "s/APP_CONTAINER/${APP_CONTAINER}/g" config.env.json
+sed -i -e "s/APP_COMMENT/${APP_COMMENT}/g" "${HOME_DIR}/config.env.json"
+sed -i -e "s/APP_SCHEDULE/${APP_SCHEDULE}/g" "${HOME_DIR}/config.env.json"
+sed -i -e "s/APP_COMMAND/${APP_COMMAND}/g" "${HOME_DIR}/config.env.json"
+sed -i -e "s/APP_PROJECT/${APP_PROJECT}/g" "${HOME_DIR}/config.env.json"
+sed -i -e "s/APP_CONTAINER/${APP_CONTAINER}/g" "${HOME_DIR}/config.env.json"
+
+cat "${HOME_DIR}/config.env.json"
 
 # for local testing only
 #HOME_DIR=.
@@ -275,7 +277,7 @@ start_app() {
         export CONFIG=${HOME_DIR}/config.working.json
     elif [ -f "${HOME_DIR}/config.json" ]; then
          export CONFIG=${HOME_DIR}/config.json
-    elif [ -f "${HOME_DIR}/config.env.son" ]; then
+    elif [ -f "${HOME_DIR}/config.env.json" ]; then
          export CONFIG=${HOME_DIR}/config.env.json
     else
         echo "NO CONFIG FILE FOUND"
