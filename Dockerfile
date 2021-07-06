@@ -11,6 +11,7 @@ RUN apk --update add upx \
 FROM library/docker:stable
 
 COPY --from=rq-build /root/rq /usr/local/bin
+COPY config.env.json config.env.json.tpl
 
 ENV HOME_DIR=/opt/crontab
 RUN apk add --no-cache --virtual .run-deps gettext jq bash tini \

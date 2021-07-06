@@ -5,6 +5,14 @@ if [ -z "$DOCKER_HOST" -a "$DOCKER_PORT_2375_TCP" ]; then
 	export DOCKER_HOST='tcp://docker:2375'
 fi
 
+cp config.env.json.tpl config.env.json
+
+sed -i -e "s/APP_COMMENT/${APP_COMMENT}/g" config.env.json
+sed -i -e "s/APP_SCHEDULE/${APP_SCHEDULE}/g" config.env.json
+sed -i -e "s/APP_COMMAND/${APP_COMMAND}/g" config.env.json
+sed -i -e "s/APP_PROJECT/${APP_PROJECT}/g" config.env.json
+sed -i -e "s/APP_CONTAINER/${APP_CONTAINER}/g" config.env.json
+
 # for local testing only
 #HOME_DIR=.
 
@@ -180,7 +188,7 @@ parse_schedule() {
 }
 
 function build_crontab() {
-        
+
     rm -rf ${CRONTAB_FILE}
 
     ONSTART=()
@@ -267,6 +275,8 @@ start_app() {
         export CONFIG=${HOME_DIR}/config.working.json
     elif [ -f "${HOME_DIR}/config.json" ]; then
          export CONFIG=${HOME_DIR}/config.json
+    elif [ -f "${HOME_DIR}/config.env.son" ]; then
+         export CONFIG=${HOME_DIR}/config.env.json
     else
         echo "NO CONFIG FILE FOUND"
     fi

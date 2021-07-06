@@ -12,3 +12,15 @@ services:
     volumes:
      - "/var/run/docker.sock:/var/run/docker.sock:ro"
      - "${PWD}/config-samples/config.sample.mapping.json:/opt/crontab/config.json:rw"
+
+  crontab2:
+    build: .
+    restart: always
+    volumes:
+     - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    environment:
+        APP_COMMENT: "test"
+        APP_PROJECT: docker-crontab
+        APP_SCHEDULE: "* * * * *"
+        APP_COMMAND: echo world
+        APP_CONTAINER: myapp
