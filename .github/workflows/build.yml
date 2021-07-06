@@ -16,5 +16,5 @@ jobs:
     - name: Build Docker image
       run: |
         docker login docker.pkg.github.com --username $GITHUB_ACTOR --password ${{ secrets.GITHUB_TOKEN }}
-        docker build --pull --target nginx --file Dockerfile --tag "docker.pkg.github.com/$GITHUB_REPOSITORY/docker-crontab" .
+        docker build --pull --tag "docker.pkg.github.com/$GITHUB_REPOSITORY/docker-crontab" .
         docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/docker-crontab"
